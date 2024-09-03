@@ -1,0 +1,4 @@
+﻿USBIPAddress,DeviceName,SourceName,GroupName,IPAddress,SubnetMask,DefaultGateway,DNSServer,Password,NewPassword
+192.168.66.1,,,,,,,10.1.8.141,Admin,
+192.168.66.1,,,,,,,10.1.8.141,Admin,
+192.168.66.1,,,,,,,10.1.8.141,Admin,
