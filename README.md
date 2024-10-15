@@ -1,5 +1,5 @@
 # BASIC USE  
-To begin using the Magewell Powershell Module start by downloadng or clone the repo to a location such as your desktop folder.  If you download, in lieu of cloning, you'll need to extract the module from the zip file.  
+To begin using the Magewell Powershell Module start by downloading or clone the repo to a location such as your desktop folder.  If you download, in lieu of cloning, you'll need to extract the module from the zip file.  
 
 Open Powershell and browse to the folder where you downloaded\extracted the module.  
 
