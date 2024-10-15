@@ -88,17 +88,17 @@ function Initialize-Magewell-NDIDevice
         [Alias("DG")]
         [String]$DefaultGateway,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [Alias("DNS")]
         [String]$DNSServer = "10.1.8.141",
         
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [String]$Password = "Admin",
       
         [Parameter(Mandatory = $true)]
         [String]$NewPassword,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [String]$NTPServer = "10.1.1.10"
 
     )
@@ -106,7 +106,7 @@ function Initialize-Magewell-NDIDevice
     process 
     {
         $basicNetworkInformation = @{
-            IPAddress = $IPAddress
+            IPAddress = $USBIPAddress
             UserName = $UserName
             Password = $Password
         }
