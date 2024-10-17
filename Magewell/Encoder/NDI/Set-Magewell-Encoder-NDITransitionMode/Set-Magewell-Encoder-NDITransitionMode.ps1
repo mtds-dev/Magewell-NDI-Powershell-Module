@@ -68,13 +68,13 @@ function Set-Magewell-Encoder-NDITransitionMode
         [switch]$EnableUDP,
 
         [Parameter(Mandatory = $false, ParameterSetName = "MCast")]
-        [switch]$McastIPAddress,
+        [string]$McastIPAddress,
 
         [Parameter(Mandatory = $false, ParameterSetname = "MCast")]
-        [switch]$McastMask,
+        [string]$McastMask,
 
         [Parameter(Mandatory = $false, ParameterSetname = "MCast")]
-        [switch]$McastTTL,
+        [string]$McastTTL,
 
         [Parameter(Mandatory = $false)]
         [Alias("IP")]
