@@ -22,7 +22,7 @@ function Set-Magewell-NDIDevice-NetworkConfiguration
     .PARAMETER DefaultGateway
      Gateway address.
 
-    .PARAMETER DNSAddress 
+    .PARAMETER DNSServer 
      DNS Server IP Address
 
     .PARAMETER  IPAddress
@@ -68,8 +68,8 @@ function Set-Magewell-NDIDevice-NetworkConfiguration
         [string]$DefaultGateway,
 
         [Parameter(Mandatory = $true)]
-        [Alias("dns-addr")]
-        [string]$DNSAddress,
+        [Alias("dns-addr","DNSAddress")]
+        [string]$DNSServer,
 
         [Parameter(Mandatory = $false)]
         [Alias("IP")]
