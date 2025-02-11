@@ -1,4 +1,4 @@
-function Invoke-Magewell-NDIDevice-FirmwareState
+function Get-Magewell-NDIDevice-FirmwareState
 {
     <#
     .SYNOPSIS
@@ -20,7 +20,7 @@ function Invoke-Magewell-NDIDevice-FirmwareState
      Returns JSON object.
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-FirmwareState -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Get-Magewell-NDIDevice-FirmwareState -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
 
     .LINK
      NONE
@@ -72,4 +72,4 @@ function Invoke-Magewell-NDIDevice-FirmwareState
 
     }
 }
-Export-ModuleMember -Function Invoke-Magewell-NDIDevice-FirmwareState
+Export-ModuleMember -Function Get-Magewell-NDIDevice-FirmwareState
