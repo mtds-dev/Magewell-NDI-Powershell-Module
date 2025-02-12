@@ -1,7 +1,10 @@
-function Invoke-Magewell-NDIPostRequest {
+function Invoke-Magewell-NDIPostRequest
+{
     <#
     .SYNOPSIS
-      A helper command that submits a web request to the Magewell device. By default, responses will be converted from JSON however this can be overriden by passing in HTMLResponse.
+      A helper command that submits a web request to the Magewell device. 
+      By default, responses will be converted from JSON however this can be 
+      overriden by passing in HTMLResponse.
 
     .DESCRIPTION
       A helper command that submits the web request to the NDI device.
@@ -22,7 +25,8 @@ function Invoke-Magewell-NDIPostRequest {
       A message that will be displayed if the POST request returns 0.
 
     .PARAMETER  ErrorMessage
-      A message that will be displayed if the POST request returns an error.  The resulting error will be appending to the message as well.
+      A message that will be displayed if the POST request returns an error.  
+      The resulting error will be appending to the message as well.
 
     .EXAMPLE
       Invoke-Magewell-NDIPostRequest -Session $session
@@ -34,31 +38,32 @@ function Invoke-Magewell-NDIPostRequest {
     .NOTES
      NONE
      #>
-     [CmdletBinding()]
-     param (
+    [CmdletBinding()]
+    param (
         [Parameter(Mandatory = $true)]
-            [Microsoft.Powershell.Commands.WebRequestSession] $Session,
+        [Microsoft.Powershell.Commands.WebRequestSession] $Session,
 
         [Parameter(Mandatory = $true)]
-            [String] $URL,
+        [String] $URL,
 
         [Parameter(Mandatory = $false)]
-            [String] $Path,
+        [String] $Path,
 
         [Parameter(Mandatory = $false)]
-            [Switch] $HTMLResponse,
+        [Switch] $HTMLResponse,
 
         [Parameter(Mandatory = $true)]
-            [String] $BeginMessage,
+        [String] $BeginMessage,
 
         [Parameter(Mandatory = $true)]
-            [String] $SuccessMessage,
+        [String] $SuccessMessage,
 
         [Parameter(Mandatory = $true)]
-            [String] $ErrorMessage
-     )
+        [String] $ErrorMessage
+    )
 
-    process {
+    process
+    {
         
         Write-Verbose $BeginMessage
         Write-Verbose $URL
@@ -68,27 +73,35 @@ function Invoke-Magewell-NDIPostRequest {
             Uri = $URL
         }
 
-        if ($Path) {
-            $webRequestArguments.Add("InFile", $Path)
+        if ($Path)
+        {
+            $form = @{
+                file = Get-Item -Path $Path
+            }
+            $webRequestArguments.Add('Form', $form)
+            $webRequestArguments.Add('Method', "Post")
         }
         $rawResponse = Invoke-WebRequest @webRequestArguments
 
         $response = $null
 
-        if ($PSBoundParameters.ContainsKey('HTMLResponse')) {
+        if ($PSBoundParameters.ContainsKey('HTMLResponse'))
+        {
             #RETURN HTML RESPONSE
             $response = $rawResponse.content
             Write-Verbose $SuccessMessage
-    		return $response
+            return $response
         }
 
         $response = ConvertFrom-Json -InputObject $rawResponse.Content
         
         #RETURN JSON RESPONSE
-        if ($response.status -eq 0 -or $response.result -eq 0) {
+        if ($response.status -eq 0 -or $response.result -eq 0)
+        {
             Write-Verbose $SuccessMessage
             return $response
-        } else {
+        } else
+        {
             $warningMessage = $ErrorMessage + ": " + $response
             Write-Warning $warningMessage   
             return $response

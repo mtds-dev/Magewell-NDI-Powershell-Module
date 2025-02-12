@@ -1,4 +1,4 @@
-function Get-Magewell-NDIDevice-FirmwareState
+function Get-Magewell-NDIDevice-Firmware-State
 {
     <#
     .SYNOPSIS
@@ -16,11 +16,14 @@ function Get-Magewell-NDIDevice-FirmwareState
     .PARAMETER  Password
       Password of the device
 
+    .PARAMETER  Session
+      WebRequestSession 
+
     .OUTPUTS
      Returns JSON object.
 
     .EXAMPLE
-      Get-Magewell-NDIDevice-FirmwareState -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
 
     .LINK
      NONE
@@ -38,20 +41,27 @@ function Get-Magewell-NDIDevice-FirmwareState
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
+
     )
 
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $sessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
         if ($null -eq $session)
         {
@@ -64,12 +74,12 @@ function Get-Magewell-NDIDevice-FirmwareState
         $argumentList = @{
             Session = $session
             URL = $url
-            BeginMessage = "Attempting to reset device."
-            SuccessMessage = "Action taken successfully, reset may take up to two minutes, please do not turn off your device."
+            BeginMessage = "Checking on Firmware Status."
+            SuccessMessage = "Action taken successfully."
             ErrorMessage = "Action failed."
         }
         return Invoke-Magewell-NDIPostRequest @argumentList
 
     }
 }
-Export-ModuleMember -Function Get-Magewell-NDIDevice-FirmwareState
+Export-ModuleMember -Function Get-Magewell-NDIDevice-Firmware-State

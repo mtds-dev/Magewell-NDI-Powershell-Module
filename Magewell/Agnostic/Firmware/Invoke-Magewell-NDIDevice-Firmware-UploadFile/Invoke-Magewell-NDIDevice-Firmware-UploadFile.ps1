@@ -19,6 +19,9 @@ function Invoke-Magewell-NDIDevice-Firmware-UploadFile
     .PARAMETER  Password
       Password of the device
 
+    .PARAMETER  Session
+      WebRequestSession 
+
     .OUTPUTS
       Returns a WebRequestSession.
 
@@ -44,22 +47,27 @@ function Invoke-Magewell-NDIDevice-Firmware-UploadFile
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [Alias('Pass')]
-        [String]$Password
-    )
+        [String]$Password,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session)
 
     process
     {
-
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        Write-Verbose $Session 
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -68,16 +76,12 @@ function Invoke-Magewell-NDIDevice-Firmware-UploadFile
         $url = "http://" + $IPAddress + "/mwapi?method=upload-update-file"
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
+            Path = $Path
             BeginMessage = "Attepmting to upload firmware file to upgrade firmware."
             SuccessMessage = "Action taken successfully, check results for any issues."
             ErrorMessage = "Action failed."
-        }
-
-        if ($Path)
-        {
-            $argumentList.add("Path", $Path)
         }
 
         Invoke-Magewell-NDIPostRequest @argumentList

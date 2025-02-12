@@ -19,6 +19,9 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
     .PARAMETER  Password
       Password of the device
 
+    .PARAMETER  Session
+      WebRequestSession 
+
     .OUTPUTS
       Returns a JSON object. 
 
@@ -44,22 +47,28 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
 
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $sessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -68,7 +77,7 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
         $url = "http://" + $IPAddress + "/mwapi?method=update&mode=" + $Mode
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to upgrade firmware on the device."
             SuccessMessage = "Action taken successfully, check results."
