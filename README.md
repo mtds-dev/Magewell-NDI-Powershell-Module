@@ -162,14 +162,17 @@ Use this command to register device with the Cloud.
 <b>Invoke-Magewell-NDIDevice-CloudUnregister</b>  
 Use this command to unregister device with the Cloud.
 
+<b>Invoke-Magewell-NDIDevice-Firmware-Upgrade</b>  
+Use this command to upgrade a device's firmware.
+
 <b>Invoke-Magewell-NDIDevice-Firmware-Update</b>  
-*NOT CURRENTLY WORKING.
+Use this command after uploading the file. (Only use if creating a custom firmware update script.)
 
 <b>Invoke-Magewell-NDIDevice-Firmware-UploadFile</b>  
-*NOT CURRENTLY WORKING.
+Use this command to upload the firmware file. (Only use if creating a custom firmware update script.)
 
-<b>Invoke-Magewell-NDIDevice-FirmwareState</b>  
-*NOT CURRENTLY WORKING.
+<b>Get-Magewell-NDIDevice-Firmware-State</b>  
+Use this command to get the current state of the firmware.  Current version or the status of a firmware update.
 
 <b>Invoke-Magewell-NDIDevice-ResetAllSettings</b>  
 Use this command to reset all device settings.
