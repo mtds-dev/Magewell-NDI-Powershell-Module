@@ -36,22 +36,24 @@ function Invoke-Magewell-NDIDevice-Firmware-UploadFile
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [String]$Path,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
         [String]$Password,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session)
 
     process

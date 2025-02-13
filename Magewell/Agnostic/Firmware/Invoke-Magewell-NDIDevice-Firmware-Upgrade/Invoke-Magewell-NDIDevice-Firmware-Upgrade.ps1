@@ -28,6 +28,8 @@ function Invoke-Magewell-NDIDevice-Firmware-Upgrade
     .EXAMPLE
       Invoke-Magewell-NDIDevice-Firmware-Upgrade -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Path ~/Downloads/pro_convert_hdmi_tx_rev_a_1_1_296.mwf
 
+      Invoke-Magewell-NDIDevice-Firmware-Upgrade -IPAddress "192.168.66.1" -Session $mySession -Path ~/Downloads/pro_convert_hdmi_tx_rev_a_1_1_296.mwf
+
     .LINK
      NONE
 
@@ -36,22 +38,24 @@ function Invoke-Magewell-NDIDevice-Firmware-Upgrade
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [String]$Path,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
         [String]$Password,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
 

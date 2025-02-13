@@ -25,6 +25,8 @@ function Get-Magewell-NDIDevice-Firmware-State
     .EXAMPLE
       Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
 
+      Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -Session $mySessions
+
     .LINK
      NONE
 
@@ -33,19 +35,20 @@ function Get-Magewell-NDIDevice-Firmware-State
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
         [String]$Password,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session
 
     )
