@@ -85,6 +85,10 @@ function Set-Magewell-Encoder-VideoConfiguration
     .PARAMETER LowResFullFR
      Indicates the Full frame rate for low bandwidth. If yes, it shows true; otherwise, it is false.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      Ouputs to JSON Object.
 
@@ -94,6 +98,8 @@ function Set-Magewell-Encoder-VideoConfiguration
      Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Brightness 100
 
      Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -InAutoColorFMT $true
+
+     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -Session $mySession -InAutoColorFMT $true
 
     .LINK
      NONE
@@ -200,20 +206,26 @@ function Set-Magewell-Encoder-VideoConfiguration
       
         [Parameter(Mandatory = $true)]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warniong "Authentication failed, command will not be executed."
             return $null
@@ -434,7 +446,7 @@ function Set-Magewell-Encoder-VideoConfiguration
         }
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to configure video configuration."
             SuccessMessage = "Action taken successfully."
