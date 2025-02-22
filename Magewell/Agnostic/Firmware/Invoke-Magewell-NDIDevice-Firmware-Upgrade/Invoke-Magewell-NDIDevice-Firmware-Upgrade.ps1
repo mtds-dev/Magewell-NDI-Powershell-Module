@@ -20,7 +20,8 @@ function Invoke-Magewell-NDIDevice-Firmware-Upgrade
       Password of the device
 
     .PARAMETER  Session
-      WebRequestSession 
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
 
     .OUTPUTS
       Returns a JSON object. 
@@ -68,10 +69,10 @@ function Invoke-Magewell-NDIDevice-Firmware-Upgrade
                 UserName = $UserName
                 Password = $Password
             }
-            $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
