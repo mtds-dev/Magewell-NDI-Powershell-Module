@@ -13,20 +13,28 @@ function Set-Magewell-NDIDevice-NetworkAccess
     .PARAMETER HTTPS
      True indicates that HTTPS is enabled, otherwise it is false
 
-    .PARAMETER  IPAddress
+    .PARAMETER IPAddress
      The ip address of the device.
 
-    .PARAMETER  UserName
+    .PARAMETER UserName
      The username to authenticate with.
 
-    .PARAMETER  Password
+    .PARAMETER Password
      The password to authenticate with.
 
+    .PARAMETER Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
-     NONE
+     Returns a JSON object.
 
     .EXAMPLE
-     NONE
+      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -HTTPS
+
+      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -SSDP
+
+      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -Session $mySession -SSDP
 
     .LINK
      NONE
@@ -36,37 +44,47 @@ function Set-Magewell-NDIDevice-NetworkAccess
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ParameterSetName = 'SSDP')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SSDP')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SSDP')]
         [Alias("use-ssdp")]
         [string]$SSDP,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'HTTPS')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-HTTP')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-HTTP')]
         [string]$HTTPS,
 
-        [Parameter(Mandatory = $false)]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SSDP')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-HTTP')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SSDP')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-HTTP')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SSDP')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-HTTP')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -77,11 +95,19 @@ function Set-Magewell-NDIDevice-NetworkAccess
 
         switch ($PSCmdlet.ParameterSetName)
         {
-            'SSDP'
+            'Pass-Session-SSDP'
             {
                 $url = $url + "enable-ssdp=" + $SSDP
             }
-            'HTTPS'
+            'New-Session-SSDP'
+            {
+                $url = $url + "enable-ssdp=" + $SSDP
+            }
+            'Pass-Session-HTTP'
+            {
+                $url = $url + "enable-https=" + $HTTPS
+            }
+            'New-Session-HTTP'
             {
                 $url = $url + "enable-https=" + $HTTPS
             }
