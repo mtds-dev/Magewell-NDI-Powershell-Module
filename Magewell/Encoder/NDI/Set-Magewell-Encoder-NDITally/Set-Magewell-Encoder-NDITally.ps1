@@ -19,11 +19,17 @@ function Invoke-Magewell-Encoder-NDITally
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      Outputs to a JSON object.
 
     .EXAMPLE
      Invoke-Magewell-Encoder-NDITally -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -EnableCustomLights $true
+
+     Invoke-Magewell-Encoder-NDITally -IPAddress "192.168.66.1" -Session $mySession -EnableCustomLights $true
 
     .LINK
      NONE
@@ -36,30 +42,38 @@ function Invoke-Magewell-Encoder-NDITally
         [Parameter(Mandatory = $true)]
         [Switch]$EnableCustomLights,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warning "Authentication failed, command will not be executed."
             return $null
@@ -89,7 +103,7 @@ function Invoke-Magewell-Encoder-NDITally
         }
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to configure NDI tally."
             SuccessMessage = "Action taken successfully."
