@@ -20,7 +20,8 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
       Password of the device
 
     .PARAMETER  Session
-      WebRequestSession 
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
 
     .OUTPUTS
       Returns a JSON object. 
