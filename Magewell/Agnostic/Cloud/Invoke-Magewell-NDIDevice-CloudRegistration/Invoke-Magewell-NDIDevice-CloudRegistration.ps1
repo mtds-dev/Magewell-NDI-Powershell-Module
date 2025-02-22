@@ -35,11 +35,17 @@ function Invoke-Magewell-NDIDevice-CloudRegistration
     .PARAMETER  Password
       Password of the device
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      Returns JSON object.
 
     .EXAMPLE
       Invoke-Magewell-NDIDevice-CloudRegistration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+
+      Invoke-Magewell-NDIDevice-CloudRegistration -IPAddress "192.168.66.1" -Session $mySession
 
     .LINK
      NONE
@@ -67,30 +73,38 @@ function Invoke-Magewell-NDIDevice-CloudRegistration
         [Parameter(Mandatory = $true)]
         [String]$CloudHttpsPort,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
 
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -104,7 +118,7 @@ function Invoke-Magewell-NDIDevice-CloudRegistration
             "&cloud-https-port=" + $CloudHttpsPort
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Reaching out to the cloud api... Attempting to Register with the Cloud."
             SuccessMessage = "Cloud API connected, check results for status."
