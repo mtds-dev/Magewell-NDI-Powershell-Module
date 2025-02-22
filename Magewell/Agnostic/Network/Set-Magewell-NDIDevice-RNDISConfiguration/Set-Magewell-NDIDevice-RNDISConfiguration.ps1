@@ -22,11 +22,18 @@ function Set-Magewell-NDIDevice-RNDISConfiguration
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      NONE
 
     .EXAMPLE
-     NONE
+      Set-Magewell-NDIDevice-RNDISConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Name "TV Decoder" -USBIPAddress "192.168.1.10"
+
+      Set-Magewell-NDIDevice-RNDISConfiguration -IPAddress "192.168.66.1" -Session $mySession -Name "TV Decoder" -USBIPAddress "192.168.1.10"
+
 
     .LINK
      NONE
@@ -43,30 +50,38 @@ function Set-Magewell-NDIDevice-RNDISConfiguration
         [Parameter(Mandatory = $true)]
         [string]$Name,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -81,7 +96,7 @@ function Set-Magewell-NDIDevice-RNDISConfiguration
             "&dns-addr=" + $DNSAddress
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to take specified action."
             SuccessMessage = "Action taken successfully."
