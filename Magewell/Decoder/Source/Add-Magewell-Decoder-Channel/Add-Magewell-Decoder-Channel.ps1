@@ -16,7 +16,9 @@ function Add-Magewell-Decoder-Channel
      The source name ranges from 1 to 120 english characters.
 
     .PARAMETER URL
-     Indicates the source URL.
+     Indicates the source URL. For more information on how to build a proper 
+     URL, look at the Magewell API page.
+     https://www.magewell.com/api-docs/pro-convert-decoder-api/source/add-channel.html
 
     .PARAMETER  IPAddress
      The ip address of the encoder.
@@ -27,11 +29,17 @@ function Add-Magewell-Decoder-Channel
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
-     NONE
+     Returns a JSON object.
 
     .EXAMPLE
-     NONE
+      Add-Magewell-Decoder-Channel -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Name "xxx" -URL "xxx"
+
+      Add-Magewell-Decoder-Channel -IPAddress "192.168.66.1" -Session $mySession -Name "xxx" -Password "xxx"
 
     .LINK
      NONE
@@ -48,30 +56,38 @@ function Add-Magewell-Decoder-Channel
         [Parameter(Mandatory = $true)]
         [string]$URL,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias("user")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warning "Authentication failed, command will not be executed."
             return $null
@@ -96,7 +112,7 @@ function Add-Magewell-Decoder-Channel
             "&url=" + $URL
     
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to take specified action."
             SuccessMessage = "Action taken successfully."
