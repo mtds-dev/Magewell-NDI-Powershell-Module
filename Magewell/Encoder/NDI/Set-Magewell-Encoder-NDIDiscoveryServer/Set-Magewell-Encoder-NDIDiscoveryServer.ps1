@@ -22,11 +22,17 @@ function Set-Magewell-Encoder-NDIDiscoveryServer
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      Outputs JSON Object.
 
     .EXAMPLE
-     NONE
+      Set-Magewell-Encoder-NDIDiscoveryServer -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -DisableDiscovery
+
+      Set-Magewell-Encoder-NDIDiscoveryServer -IPAddress "192.168.66.1" -Session $mySession -DisableDiscovery
 
     .LINK
      NONE
@@ -36,36 +42,50 @@ function Set-Magewell-Encoder-NDIDiscoveryServer
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ParameterSetName = "DisableDiscovery")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DisableDiscovery')]
         [Switch]$DisableDiscovery,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "DiscoveryServer")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DiscoveryServer')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DiscoveryServer')]
         [String]$DiscoveryServer,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DiscoveryServer')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DiscoveryServer')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-DiscoveryServer')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DiscoveryServer')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DisableDiscovery')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DiscoveryServer')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warning "Authentication failed, command will not be executed."
             return $null
@@ -98,7 +118,7 @@ function Set-Magewell-Encoder-NDIDiscoveryServer
         }
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Attempting to configure an NDI Discovery Server."
             SuccessMessage = "Action taken successfully."
