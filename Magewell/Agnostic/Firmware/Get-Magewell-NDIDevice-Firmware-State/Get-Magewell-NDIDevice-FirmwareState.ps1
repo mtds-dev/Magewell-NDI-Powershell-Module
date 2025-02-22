@@ -17,7 +17,8 @@ function Get-Magewell-NDIDevice-Firmware-State
       Password of the device
 
     .PARAMETER  Session
-      WebRequestSession 
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication.       WebRequestSession 
 
     .OUTPUTS
      Returns JSON object.
@@ -55,7 +56,6 @@ function Get-Magewell-NDIDevice-Firmware-State
 
     process
     {
-
         if ($null -eq $Session)
         {
             $sessionArguments = @{
@@ -66,7 +66,7 @@ function Get-Magewell-NDIDevice-Firmware-State
             $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
@@ -75,7 +75,7 @@ function Get-Magewell-NDIDevice-Firmware-State
         $url = "http://" + $IPAddress + "/mwapi?method=get-update-state"
 
         $argumentList = @{
-            Session = $session
+            Session = $Session
             URL = $url
             BeginMessage = "Checking on Firmware Status."
             SuccessMessage = "Action taken successfully."
