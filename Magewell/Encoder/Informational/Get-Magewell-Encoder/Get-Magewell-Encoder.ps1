@@ -95,6 +95,10 @@ function Get-Magewell-Encoder
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
      Outputs JSON object.
 
@@ -104,6 +108,8 @@ function Get-Magewell-Encoder
      Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeAll
 
      Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeInfo -LogTypeWarn
+
+     Get-Magewell-Encoder -IPAddress 10.10.10.10 -Session $mySession -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
     .LINK
      NONE
@@ -199,26 +205,31 @@ function Get-Magewell-Encoder
         [string]$UserName = "Admin",
 
         [Parameter(Mandatory = $true)]
-        [string]$Password
+        [string]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
 
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warning "Authentication failed, command will not be executed."
             return $null
         }
-
 
         $modelArguments = @{
             IPAddress = $IPAddress
@@ -369,7 +380,7 @@ function Get-Magewell-Encoder
         }
 
         $argumentList = @{
-            Session = $session 
+            Session = $Session 
             URL = $url
             BeginMessage = "Attempting to retrieve the requested information from the device."
             SuccessMessage = "Information retrieved successfully."
