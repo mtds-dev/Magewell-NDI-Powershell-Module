@@ -52,8 +52,12 @@ function Invoke-Magewell-NDIDevice-Utilities
     .PARAMETER  Password
       Password of the device
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
-     NONE
+     Returns a JSON object.
 
     .EXAMPLE
      Invoke-Magewell-NDIDevice-Utilities -Ping -IPAddress 10.10.10.10 -UserName Admin -Password myPassword 
@@ -74,104 +78,149 @@ function Invoke-Magewell-NDIDevice-Utilities
      #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ParameterSetName = 'Ping')]
-        [switch]$Ping,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-Ping')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-Ping')]
+        [Switch]$Ping,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'SummaryInformation')]
-        [switch]$SummaryInformation,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SummaryInformation')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SummaryInformation')]
+        [Switch]$SummaryInformation,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'SyncClock')]
-        [switch]$SyncClock,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SyncClock')]
+        [Switch]$SyncClock,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'SyncClock')]
-        [string]$SyncDate,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SyncClock')]
+        [String]$SyncDate,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'SyncClock')]
-        [string]$SyncTime,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SyncClock')]
+        [String]$SyncTime,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Reboot')]
-        [switch]$Reboot,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-RebootNow')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-RebootNow')]
+        [Switch]$Reboot,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'AutoReboot')]
-        [switch]$AutoReboot,
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
+        [Switch]$AutoReboot,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [bool]$RebootEnabled,
 
         [ValidateRange(0,63)]
-        [Parameter(Mandatory = $false, ParameterSetName = 'AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [int]$RebootWeekFlags,
 
         [ValidateRange(0,23)]
-        [Parameter(Mandatory = $false, ParameterSetName = 'AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [int]$RebootHour,
 
         [ValidateRange(0,59)]
-        [Parameter(Mandatory = $false, ParameterSetName = 'AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [int]$RebootMinute,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-Ping')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-Ping')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-SummaryInformation')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SummaryInformation')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SyncClock')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-RebootNow')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-RebootNow')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-AutoReboot')]
         [Alias("IP")]
         [String]$IPAddress = "192.168.66.1",
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-Ping')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SummaryInformation')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SyncClock')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-RebootNow')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-AutoReboot')]
         [Alias("User")]
         [String]$UserName = "Admin",
       
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-Ping')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-Ping')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-SummaryInformation')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SummaryInformation')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-SyncClock')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-RebootNow')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-RebootNow')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [Alias('Pass')]
-        [String]$Password
+        [String]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-Ping')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SummaryInformation')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SyncClock')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-AutoReboot')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-RebootNow')]
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @SessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Host "Authentication failed, command will not be executed."
             return $null
         }
 
         $url = "http://" + $IPAddress + "/mwapi?method="
-    
-        switch ($PSCmdlet.ParameterSetName)
+        Write-Host $PSCmdlet.ParameterSetName
+        if ($PSCmdlet.ParameterSetName -match "Ping")
         {
-            'Ping'
-            {
-                $url = $url + "ping"
-                break
-            }
-            'SyncClock'
-            {
-                $url = $url + "sync-time&date=" + $SyncDate + "&time=" + $SyncTime
-                break
-            }
-            'Reboot'
-            {
-                $url = $url + "reboot"
-                break
-            }
-            'AutoReboot'
-            {
-                $url = $url + "set-auto-reboot&"
-                if ($RebootEnabled)
-                {
-                    $url = $url + "enable=true&week-flags=" + $RebootWeekFlags + `
-                        "&hour=" + $RebootHour + "&min=" + $RebootMinute
-                } else
-                {
-                    $url = $url + "enable=false"
-                }
-            }
+            $url = $url + "ping"
         }
 
+        if ($PSCmdlet.ParameterSetName -match "SummaryInformation")
+        {
+            $url = $url + "get-summary-info"
+        }
+
+        if ($PSCmdlet.ParameterSetName -match "SyncClock")
+        {
+            $url = $url + "sync-time&date=" + $SyncDate + "&time=" + $SyncTime
+        }
+
+        if ($PSCmdlet.ParameterSetName -match "RebootNow")
+        {
+            $url = $url + "reboot"
+        }
+
+        if ($PSCmdlet.ParameterSetName -match "AutoReboot")
+        {
+            $url = $url + "set-auto-reboot&"
+            if ($RebootEnabled)
+            {
+                $url = $url + "enable=true&week-flags=" + $RebootWeekFlags + `
+                    "&hour=" + $RebootHour + "&min=" + $RebootMinute
+            } else
+            {
+                $url = $url + "enable=false"
+            }
+        }
+        Write-Host $url
         $argumentList = @{
             Session = $session
             URL = $url
@@ -179,8 +228,7 @@ function Invoke-Magewell-NDIDevice-Utilities
             SuccessMessage = "Action taken successfully."
             ErrorMessage = "Action failed."
         }
-        Invoke-Magewell-NDIPostRequest @argumentList
-
+        return Invoke-Magewell-NDIPostRequest @argumentList
     }
 }
 Export-ModuleMember -Function Invoke-Magewell-NDIDevice-Utilities
