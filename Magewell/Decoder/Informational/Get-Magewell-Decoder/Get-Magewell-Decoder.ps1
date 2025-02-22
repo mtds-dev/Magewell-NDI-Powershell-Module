@@ -113,14 +113,21 @@ function Get-Magewell-Decoder
     .PARAMETER  Password
      The password to authenticate with.
 
+    .PARAMETER  Session
+     Use a previously created WebRequestSession (Authentication session)
+     Created using Invoke-Magewell-NDIDevice-Authentication. 
+
     .OUTPUTS
-     
+      Returns a JSON object.    
+
     .EXAMPLE
      Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -SummaryInformation
 
      Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeAll
 
      Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeInfo -LogTypeWarn
+
+     Get-MagewellDecoder -IPAddress 10.10.10.10 -Session $mySession -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
     .LINK
      NONE
@@ -237,21 +244,25 @@ function Get-Magewell-Decoder
 
         [Parameter(Mandatory = $true)]
         [Alias("Pass")]
-        [string]$Password
+        [string]$Password,
 
+        [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )
     
     process
     {
 
-        $sessionArguments = @{
-            IPAddress = $IPAddress
-            UserName = $UserName
-            Password = $Password
+        if ($null -eq $Session)
+        {
+            $SessionArguments = @{
+                IPAddress = $IPAddress
+                UserName = $UserName
+                Password = $Password
+            }
+            $Session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
         }
-        $session = Invoke-Magewell-NDIDevice-Authentication @sessionArguments 
 
-        if ($null -eq $session)
+        if ($null -eq $Session)
         {
             Write-Warning "Authentication failed, command will not be executed."
             return $null
@@ -430,7 +441,7 @@ function Get-Magewell-Decoder
         }
 
         $argumentList = @{
-            Session = $session 
+            Session = $Session 
             URL = $url
             BeginMessage = "Attempting to retrieve the requested information from the device."
             SuccessMessage = "Information retrieved successfully."
