@@ -40,6 +40,31 @@ help Get-Magewell-Encoder
  or
 help Get-Magewell-Decoder  
 ```
+# PASSWORD MANAGEMENT
+<b> Being prompted for your password. </b>
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString) -SummaryInformation
+
+<b> Being prompted for your password each time a command executes. </b>
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString) -SummaryInformation
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString) -AutoReboot
+
+<b> Being prompted only once for your password but reusing the password for multiple commands. </b>
+$myPassword = $(New-SecureString)
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $myPassword -SummaryInformation
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $myPassword -AutoReboot
+
+<b> Providing a password without being prompted. </b>
+$myPassword = ConvertTo-SecureString -String "myPassword"
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString) -SummaryInformation
+Get-Magewell-Decoder -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString) -AutoReboot
+
+
+# SESSION MANAGEMENT 
+Instead of reauthenticating to the device each time, you can pass "sessions" around. Doing so is a lot faster in comparison when running a lot of commands on many devices. <b> For example: </b>
+`$session = Invoke-Magewell-NDIDevice-Authentication -IPAddress "192.168.0.10" -UserName "Admin" -Password $(New-SecureString)`
+`Get-Magewell-Decoder -IPAddress "192.168.0.10" -Session $session  -SummaryInformation`
+`Get-Magewell-Decoder -IPAddress "192.168.0.10" -Session $session  -AutoReboot`
+
 
 # DECODERS
 <b> Get-Magewell-Decoder</b>  
