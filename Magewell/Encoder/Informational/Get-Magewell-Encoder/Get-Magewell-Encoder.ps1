@@ -205,7 +205,7 @@ function Get-Magewell-Encoder
         [string]$UserName = "Admin",
 
         [Parameter(Mandatory = $true)]
-        [string]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session

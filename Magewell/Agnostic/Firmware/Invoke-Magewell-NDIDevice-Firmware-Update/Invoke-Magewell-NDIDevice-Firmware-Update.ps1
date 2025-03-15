@@ -54,7 +54,7 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
       
         [Parameter(Mandatory = $false, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session

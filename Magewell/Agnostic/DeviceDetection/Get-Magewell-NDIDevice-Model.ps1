@@ -36,7 +36,7 @@ function Get-Magewell-NDIDevice-Model
 
         [Parameter(Mandatory = $true)]
         [Alias("Pass")]
-        [String]$Password
+        [System.Security.SecureString]$Password
     )
     
     process

@@ -93,7 +93,7 @@ function Initialize-Magewell-NDIDevice
         [String]$DNSServer = "10.1.8.141",
         
         [Parameter(Mandatory = $false)]
-        [String]$Password = "Admin",
+        [System.Security.SecureString]$Password = "Admin",
       
         [Parameter(Mandatory = $true)]
         [String]$NewPassword,

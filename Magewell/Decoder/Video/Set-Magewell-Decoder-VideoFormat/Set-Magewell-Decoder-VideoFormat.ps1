@@ -62,7 +62,7 @@ function Set-Magewell-Decoder-VideoFormat
         [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
         [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session

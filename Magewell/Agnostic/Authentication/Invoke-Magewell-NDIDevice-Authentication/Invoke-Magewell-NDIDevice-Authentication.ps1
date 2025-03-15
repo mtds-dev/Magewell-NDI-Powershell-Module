@@ -43,7 +43,7 @@ function Invoke-Magewell-NDIDevice-Authentication
       
         [Parameter(Mandatory = $true)]
         [Alias('Pass')]
-        [String]$Password
+        [System.Security.SecureString]$Password
     )
 
     process
@@ -62,7 +62,7 @@ function Invoke-Magewell-NDIDevice-Authentication
         #Add check for greater than PS 5 and provide the -NoProxy parameter.
         [System.Net.HttpWebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy($null)
 
-        $passHash = New-MD5Hash -String $Password
+        $passHash = New-MD5Hash -String $(ConvertFrom-SecureString -SecureString $Password -AsPlainText)
 
         $urlLogin = "http://" + $IPAddress + "/mwapi?method=login&id=" + `
             $UserName + "&pass=" + $passHash

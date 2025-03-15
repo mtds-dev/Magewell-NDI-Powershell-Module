@@ -64,7 +64,7 @@ function Set-Magewell-NDIDevice-NetworkAccess
         [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-SSDP')]
         [Parameter(Mandatory = $false, ParameterSetName = 'New-Session-HTTP')]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SSDP')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-HTTP')]

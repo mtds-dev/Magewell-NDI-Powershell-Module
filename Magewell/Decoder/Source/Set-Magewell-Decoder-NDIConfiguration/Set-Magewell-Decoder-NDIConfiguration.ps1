@@ -105,7 +105,7 @@ function Set-Magewell-Decoder-NDIConfiguration
       
         [Parameter(Mandatory = $true)]
         [Alias('pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )

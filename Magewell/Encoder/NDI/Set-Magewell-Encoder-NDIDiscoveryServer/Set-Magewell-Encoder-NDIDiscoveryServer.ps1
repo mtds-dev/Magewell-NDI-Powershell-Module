@@ -65,7 +65,7 @@ function Set-Magewell-Encoder-NDIDiscoveryServer
         [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DisableDiscovery')]
         [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-DiscoveryServer')]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DisableDiscovery')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-DiscoveryServer')]

@@ -206,7 +206,7 @@ function Set-Magewell-Encoder-VideoConfiguration
       
         [Parameter(Mandatory = $true)]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session

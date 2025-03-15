@@ -55,7 +55,7 @@ function Edit-Magewell-NDIDevice-UserPassword
         [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session')]
         [Parameter(Mandatory = $true, ParameterSetName = 'New-Session')]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session')]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session

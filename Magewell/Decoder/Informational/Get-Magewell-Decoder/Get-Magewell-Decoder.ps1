@@ -244,7 +244,7 @@ function Get-Magewell-Decoder
 
         [Parameter(Mandatory = $true)]
         [Alias("Pass")]
-        [string]$Password,
+        [System.Security.SecureString]$Password,
 
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session
     )

@@ -157,7 +157,7 @@ function Invoke-Magewell-NDIDevice-Utilities
         [Parameter(Mandatory = $false, ParameterSetName = 'Pass-Session-AutoReboot')]
         [Parameter(Mandatory = $true, ParameterSetName = 'New-Session-AutoReboot')]
         [Alias('Pass')]
-        [String]$Password,
+        [System.Security.SecureString]$Password,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-Ping')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Pass-Session-SummaryInformation')]
