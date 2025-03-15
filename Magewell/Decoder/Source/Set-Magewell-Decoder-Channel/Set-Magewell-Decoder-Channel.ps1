@@ -30,7 +30,7 @@ function Set-Magewell-Decoder-Channel
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-Channel -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -NDIName "xxx" -Name "xxx"
+      Set-Magewell-Decoder-Channel -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -NDIName "xxx" -Name "xxx"
 
       Set-Magewell-Decoder-Channel -IPAddress "192.168.66.1" -Session $mySession -NDIName "xxx" -Name "xxx"
 

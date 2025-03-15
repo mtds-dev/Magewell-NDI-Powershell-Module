@@ -27,7 +27,7 @@ function Invoke-Magewell-NDIDevice-CloudUnregister
      Created using Invoke-Magewell-NDIDevice-Authentication. 
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-CloudUnregister -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-CloudUnregister -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-CloudUnregister -IPAddress "192.168.66.1" -Session $mySession
 

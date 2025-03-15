@@ -76,9 +76,9 @@ function Invoke-Magewell-Encoder-PTZConfiguration
      Outputs to JSON object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-PTZConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Baudrate 38400
+     Set-Magewell-Encoder-PTZConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Baudrate 38400
 
-     Set-Magewell-Encoder-PTZConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -TiltBottomLimit 500
+     Set-Magewell-Encoder-PTZConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -TiltBottomLimit 500
 
      Set-Magewell-Encoder-PTZConfiguration -IPAddress "192.168.66.1" Session $mySession -TiltBottomLimit 500
 

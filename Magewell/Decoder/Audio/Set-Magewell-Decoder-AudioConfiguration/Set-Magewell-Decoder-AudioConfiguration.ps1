@@ -104,7 +104,7 @@ function Set-Magewell-Decoder-AudioConfiguration
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-AudioConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Gain 50
+      Set-Magewell-Decoder-AudioConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Gain 50
 
       Set-Magewell-Decoder-AudioConfiguration -IPAddress "192.168.66.1" -Session $mySession -Gain 50
 

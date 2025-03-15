@@ -54,7 +54,7 @@ function Set-Magewell-Decoder-NDIConfiguration
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-NDIConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -EnableTCP
+      Set-Magewell-Decoder-NDIConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -EnableTCP
 
       Set-Magewell-Decoder-NDIConfiguration -IPAddress "192.168.66.1" -Session $mySession -EnableTCP
 

@@ -27,7 +27,7 @@ function Invoke-Magewell-NDIDevice-Firmware-Update
       Returns a JSON object. 
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-Firmware-Update -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-Firmware-Update -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-Firmware-Update -IPAddress "192.168.66.1" -Session $mySession
 

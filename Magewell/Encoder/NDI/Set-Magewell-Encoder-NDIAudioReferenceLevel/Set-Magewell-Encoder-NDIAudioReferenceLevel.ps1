@@ -29,7 +29,7 @@ function Set-Magewell-Encoder-NDIAudioReferenceLevel
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Encoder-NDIAudioReferenceLevel -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -ReferenceLevel EBU
+      Set-Magewell-Encoder-NDIAudioReferenceLevel -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -ReferenceLevel EBU
 
       Set-Magewell-Encoder-NDIAudioReferenceLevel -IPAddress "192.168.66.1" -Session $mySession -ReferenceLevel EBU
 

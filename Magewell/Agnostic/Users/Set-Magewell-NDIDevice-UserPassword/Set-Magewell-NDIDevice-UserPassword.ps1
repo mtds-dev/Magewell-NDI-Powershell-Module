@@ -30,7 +30,7 @@ function Set-Magewell-NDIDevice-UserPassword
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -ID 1 -NewPassword "myNewPassword" 
+      Set-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -ID 1 -NewPassword "myNewPassword" 
 
       Set-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -Session $mySession -ID 1 -NewPassword "myNewPassword"
 

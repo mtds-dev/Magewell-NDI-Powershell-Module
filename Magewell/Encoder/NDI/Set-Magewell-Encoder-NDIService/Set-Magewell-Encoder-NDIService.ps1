@@ -27,9 +27,9 @@ function Set-Magewell-Encoder-NDIService
      Outputs to a JSON object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-NDIService -IPAddress "192.168.6.1" -UserName "Admin" -Password "myPassword" -EnableNDI $true
+     Set-Magewell-Encoder-NDIService -IPAddress "192.168.6.1" -UserName "Admin" -Password $(New-SecureString) -EnableNDI $true
 
-     Set-Magewell-Encoder-NDIService -IPAddress "192.168.6.1" -UserName "Admin" -Password "myPassword" -EnableNDI $false
+     Set-Magewell-Encoder-NDIService -IPAddress "192.168.6.1" -UserName "Admin" -Password $(New-SecureString) -EnableNDI $false
 
      Set-Magewell-Encoder-NDIService -IPAddress "192.168.6.1" -Session $mySession -EnableNDI $false
 

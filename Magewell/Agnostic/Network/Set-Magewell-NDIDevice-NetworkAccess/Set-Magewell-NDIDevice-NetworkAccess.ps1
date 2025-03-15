@@ -30,9 +30,9 @@ function Set-Magewell-NDIDevice-NetworkAccess
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -HTTPS
+      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -HTTPS
 
-      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -SSDP
+      Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -SSDP
 
       Set-Magewell-NDIDevice-NetworkAccess -IPAddress "192.168.66.1" -Session $mySession -SSDP
 

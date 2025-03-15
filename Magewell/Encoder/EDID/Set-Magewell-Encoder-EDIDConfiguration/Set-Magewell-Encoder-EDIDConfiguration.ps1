@@ -36,11 +36,11 @@ function Set-Magewell-Encoder-EDIDConfiguration
      Outputs JSON object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -SmartEDID $true
+     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -SmartEDID $true
 
-     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -KeepLast $true
+     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -KeepLast $true
 
-     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -LimitPixelClock $true
+     Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -LimitPixelClock $true
 
      Set-Magewell-Encoder-EDIDConfiguration -IPAddress "192.168.66.1" -Session $mySession -LimitPixelClock $true
 

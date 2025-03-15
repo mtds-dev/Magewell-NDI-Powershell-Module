@@ -93,11 +93,11 @@ function Set-Magewell-Encoder-VideoConfiguration
      Ouputs to JSON Object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Hue 50
+     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Hue 50
 
-     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Brightness 100
+     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Brightness 100
 
-     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -InAutoColorFMT $true
+     Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -InAutoColorFMT $true
 
      Set-Magewell-Encoder-VideoConfiguration -IPAddress "192.168.66.1" -Session $mySession -InAutoColorFMT $true
 

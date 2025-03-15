@@ -24,7 +24,7 @@ function Get-Magewell-NDIDevice-CloudStatus
      Returns a JSON object.
 
     .EXAMPLE
-      Get-Magewell-NDIDevice-CloudStatus -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Get-Magewell-NDIDevice-CloudStatus -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Get-Magewell-NDIDevice-CloudStatus -IPAddress "192.168.66.1" -Session $mySession
 

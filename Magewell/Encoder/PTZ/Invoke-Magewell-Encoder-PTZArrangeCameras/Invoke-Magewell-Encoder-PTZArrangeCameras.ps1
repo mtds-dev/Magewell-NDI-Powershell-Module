@@ -24,7 +24,7 @@ function Invoke-Magewell-Encoder-PTZArrangeCameras
      Created using Invoke-Magewell-NDIDevice-Authentication. 
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-PTZArrangeCameras -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+     Invoke-Magewell-Encoder-PTZArrangeCameras -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
      Invoke-Magewell-Encoder-PTZArrangeCameras -IPAddress "192.168.66.1" -Session $mySession 
 

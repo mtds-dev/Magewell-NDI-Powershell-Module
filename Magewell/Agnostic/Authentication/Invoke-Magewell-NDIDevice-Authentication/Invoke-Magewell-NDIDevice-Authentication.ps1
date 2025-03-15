@@ -20,9 +20,9 @@ function Invoke-Magewell-NDIDevice-Authentication
       Returns a WebRequestSession.
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-Authentication -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-Authentication -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
-      $session = Invoke-Magewell-NDIDevice-Authentication -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" 
+      $session = Invoke-Magewell-NDIDevice-Authentication -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) 
 
     .LINK
      NONE

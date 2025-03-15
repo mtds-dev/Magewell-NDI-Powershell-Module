@@ -45,11 +45,11 @@ function Set-Magewell-Encoder-NDITransitionMode
      Outputs to a JSON object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password "myPassword" -EnableMCast $true
+     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password $(New-SecureString) -EnableMCast $true
 
-     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password "myPassword" -EnableUDP $true
+     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password $(New-SecureString) -EnableUDP $true
 
-     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password "myPassword" -EnableMCast $true
+     Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Username "Admin" -Password $(New-SecureString) -EnableMCast $true
 
      Set-Magewell-Encoder-NDITransitionMode -IPAddress "192.168.66.1" -Session $mySession -EnableMCast $true
 

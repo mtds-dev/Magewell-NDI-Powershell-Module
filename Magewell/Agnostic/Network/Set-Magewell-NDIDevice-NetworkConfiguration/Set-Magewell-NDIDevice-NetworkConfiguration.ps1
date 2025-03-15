@@ -42,7 +42,7 @@ function Set-Magewell-NDIDevice-NetworkConfiguration
      NONE
 
     .EXAMPLE
-      Set-Magewell-NDIDevice-NetworkConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Set-Magewell-NDIDevice-NetworkConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Set-Magewell-NDIDevice-NetworkConfiguration -IPAddress "192.168.66.1" -Session $mySession
 

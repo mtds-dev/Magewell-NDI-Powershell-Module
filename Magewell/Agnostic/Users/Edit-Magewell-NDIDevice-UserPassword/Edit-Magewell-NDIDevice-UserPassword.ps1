@@ -27,7 +27,7 @@ function Edit-Magewell-NDIDevice-UserPassword
      NONE
 
     .EXAMPLE
-      Edit-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -NewPassword "myNewPassword"
+      Edit-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -NewPassword "myNewPassword"
 
       Edit-Magewell-NDIDevice-UserPassword -IPAddress "192.168.66.1" -Session $mySession -NewPassword "myNewPassword"
 

@@ -30,7 +30,7 @@ function Set-Magewell-NDIDevice-RNDISConfiguration
      NONE
 
     .EXAMPLE
-      Set-Magewell-NDIDevice-RNDISConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Name "TV Decoder" -USBIPAddress "192.168.1.10"
+      Set-Magewell-NDIDevice-RNDISConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Name "TV Decoder" -USBIPAddress "192.168.1.10"
 
       Set-Magewell-NDIDevice-RNDISConfiguration -IPAddress "192.168.66.1" -Session $mySession -Name "TV Decoder" -USBIPAddress "192.168.1.10"
 

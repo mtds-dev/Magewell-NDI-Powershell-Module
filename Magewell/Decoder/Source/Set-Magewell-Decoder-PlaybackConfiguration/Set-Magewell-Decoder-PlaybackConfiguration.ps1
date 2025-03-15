@@ -27,7 +27,7 @@ function Set-Magewell-Decoder-PlaybackConfiguration
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-PlaybackConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -BufferDuration 20
+      Set-Magewell-Decoder-PlaybackConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -BufferDuration 20
 
       Set-Magewell-Decoder-PlaybackConfiguration -IPAddress "192.168.66.1" -Session $mySession -BufferDuration 20
 

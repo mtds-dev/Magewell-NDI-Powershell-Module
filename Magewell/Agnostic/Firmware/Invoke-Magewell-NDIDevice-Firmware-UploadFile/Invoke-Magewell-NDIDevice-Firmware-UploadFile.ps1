@@ -27,7 +27,7 @@ function Invoke-Magewell-NDIDevice-Firmware-UploadFile
       Returns a WebRequestSession.
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-Firmware-UploadFile -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-Firmware-UploadFile -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-Firmware-UploadFile -IPAddress "192.168.66.1" -Session $mySession
 

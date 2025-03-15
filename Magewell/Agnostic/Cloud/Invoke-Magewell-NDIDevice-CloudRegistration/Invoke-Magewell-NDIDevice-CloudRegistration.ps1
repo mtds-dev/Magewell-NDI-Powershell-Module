@@ -43,7 +43,7 @@ function Invoke-Magewell-NDIDevice-CloudRegistration
      Returns JSON object.
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-CloudRegistration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-CloudRegistration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-CloudRegistration -IPAddress "192.168.66.1" -Session $mySession
 

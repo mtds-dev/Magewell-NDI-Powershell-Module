@@ -39,7 +39,7 @@ function Set-Magewell-Decoder-VideoMode
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-VideoMode -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -AspectRatio "xxx"
+      Set-Magewell-Decoder-VideoMode -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -AspectRatio "xxx"
 
       Set-Magewell-Decoder-VideoMode -IPAddress "192.168.66.1" -Session $mySession -AspectRatio "xxx"
 

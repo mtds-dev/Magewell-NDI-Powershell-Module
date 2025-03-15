@@ -33,7 +33,7 @@ function Invoke-Magewell-Encoder-NDIFailover
      Returns a JSON object.
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-NDIFailover -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -EnableFailOver
+     Invoke-Magewell-Encoder-NDIFailover -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -EnableFailOver
 
      Invoke-Magewell-Encoder-NDIFailover -IPAddress "192.168.66.1" -Session $mySession -EnableFailOver
 

@@ -24,7 +24,7 @@ function Invoke-Magewell-Encoder-EDIDUpload
      Outputs JSON object.
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-EDIDUpload -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+     Invoke-Magewell-Encoder-EDIDUpload -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
     .LINK
      NONE

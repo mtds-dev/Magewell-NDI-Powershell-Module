@@ -24,7 +24,7 @@ function Invoke-Magewell-NDIDevice-SSLCertKey-Upload
       Returns a WebRequestSession.
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-SSLCertKey-Upload -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-SSLCertKey-Upload -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-SSLCertKey-Upload -IPAddress "192.168.66.1" -Session $mySession
 

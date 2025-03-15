@@ -30,7 +30,7 @@ function Set-Magewell-Encoder-NDIDiscoveryServer
      Outputs JSON Object.
 
     .EXAMPLE
-      Set-Magewell-Encoder-NDIDiscoveryServer -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -DisableDiscovery
+      Set-Magewell-Encoder-NDIDiscoveryServer -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -DisableDiscovery
 
       Set-Magewell-Encoder-NDIDiscoveryServer -IPAddress "192.168.66.1" -Session $mySession -DisableDiscovery
 

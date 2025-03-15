@@ -30,7 +30,7 @@ function Invoke-Magewell-Encoder-NDISourceVideo
      Returns a JSON object.
 
     .EXAMPLE
-      Invoke-Magewell-Encoder-NDISourceVideo -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -SourceName "xxx" -GroupName  "xxx"
+      Invoke-Magewell-Encoder-NDISourceVideo -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -SourceName "xxx" -GroupName  "xxx"
 
       Invoke-Magewell-Encoder-NDISourceVideo -IPAddress "192.168.66.1" -Session $mySession -SourceName "xxx" -GroupName  "xxx"
 

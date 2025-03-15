@@ -24,7 +24,7 @@ function Invoke-Magewell-NDIDevice-SSLCertificate-Upload
      Created using Invoke-Magewell-NDIDevice-Authentication. 
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-SSLCertificate-Upload -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Invoke-Magewell-NDIDevice-SSLCertificate-Upload -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Invoke-Magewell-NDIDevice-SSLCertificate-Upload -IPAddress "192.168.66.1" -Session $mySession
 

@@ -17,7 +17,7 @@ function Get-Magewell-NDIDevice-Model
      Password used to authenticate to the device.
 
     .EXAMPLE
-     Get-Magewell-NDIDevice-Model -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+     Get-Magewell-NDIDevice-Model -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
     .LINK
      NONE

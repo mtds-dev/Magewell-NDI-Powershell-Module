@@ -76,7 +76,7 @@ function Set-Magewell-Decoder-VideoConfiguration
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -ShowTitle
+      Set-Magewell-Decoder-VideoConfiguration -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -ShowTitle
 
       Set-Magewell-Decoder-VideoConfiguration -IPAddress "192.168.66.1" -Session $mySession -ShowTitle
 

@@ -27,7 +27,7 @@ function Invoke-Magewell-NDIDevice-Firmware-Upgrade
       Returns a JSON object. 
 
     .EXAMPLE
-      Invoke-Magewell-NDIDevice-Firmware-Upgrade -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Path ~/Downloads/pro_convert_hdmi_tx_rev_a_1_1_296.mwf
+      Invoke-Magewell-NDIDevice-Firmware-Upgrade -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Path ~/Downloads/pro_convert_hdmi_tx_rev_a_1_1_296.mwf
 
       Invoke-Magewell-NDIDevice-Firmware-Upgrade -IPAddress "192.168.66.1" -Session $mySession -Path ~/Downloads/pro_convert_hdmi_tx_rev_a_1_1_296.mwf
 

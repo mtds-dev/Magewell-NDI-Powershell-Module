@@ -27,7 +27,7 @@ function Remove-Magewell-NDIDevice-User
      Returns a JSON object.
 
     .EXAMPLE
-      Remove-Magewell-NDIDevice-User -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -ID 1
+      Remove-Magewell-NDIDevice-User -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -ID 1
 
       Remove-Magewell-NDIDevice-User -IPAddress "192.168.66.1" -Session $mySession -ID 1
 

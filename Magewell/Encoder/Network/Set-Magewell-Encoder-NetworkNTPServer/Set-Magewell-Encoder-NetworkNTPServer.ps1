@@ -18,7 +18,7 @@ function Set-Magewell-Encoder-NetworkNTPServer
      Outputs to a JSON Object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-NetworkNTPServer -IPAddress "192.168.66.1" -UserName "Admin -Password "myPassword" -NTPServer "162.159.200.1"
+     Set-Magewell-Encoder-NetworkNTPServer -IPAddress "192.168.66.1" -UserName "Admin -Password $(New-SecureString) -NTPServer "162.159.200.1"
 
      Set-Magewell-Encoder-NetworkNTPServer -IPAddress "192.168.66.1" -Session $mySession -NTPServer "162.159.200.1"
 

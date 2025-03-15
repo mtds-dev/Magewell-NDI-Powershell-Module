@@ -30,7 +30,7 @@ function Set-Magewell-Decoder-VideoFormat
      Returns a JSON object.
 
     .EXAMPLE
-      Set-Magewell-Decoder-VideoFormat -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -ColorFormat rgb
+      Set-Magewell-Decoder-VideoFormat -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -ColorFormat rgb
 
       Set-Magewell-Decoder-VideoFormat -IPAddress "192.168.66.1" -Session $mySession -ColorFormat rgb
 

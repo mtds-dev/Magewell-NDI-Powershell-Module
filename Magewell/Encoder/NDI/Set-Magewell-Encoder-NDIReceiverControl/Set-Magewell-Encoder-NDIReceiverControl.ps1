@@ -30,7 +30,7 @@ function Invoke-Magewell-Encoder-NDIReceiverControl
      Returns a JSON object.
 
     .EXAMPLE
-      Invoke-Magewell-Encoder-NDIReceiverControl -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -EnablePTZControl
+      Invoke-Magewell-Encoder-NDIReceiverControl -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -EnablePTZControl
 
       Invoke-Magewell-Encoder-NDIReceiverControl -IPAddress "192.168.66.1" -Session $mySession -EnablePTZControl
 

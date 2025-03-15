@@ -24,7 +24,7 @@ function Invoke-Magewell-Encoder-EDIDConfigurationReset
      Outputs JSON object.
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-EDIDConfigurationReset -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+     Invoke-Magewell-Encoder-EDIDConfigurationReset -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
      Invoke-Magewell-Encoder-EDIDConfigurationReset -IPAddress "192.168.66.1" -Session $mySession 
 

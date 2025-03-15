@@ -24,7 +24,7 @@ function Get-Magewell-NDIDevice-Firmware-State
      Returns JSON object.
 
     .EXAMPLE
-      Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword"
+      Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString)
 
       Get-Magewell-NDIDevice-Firmware-State -IPAddress "192.168.66.1" -Session $mySessions
 

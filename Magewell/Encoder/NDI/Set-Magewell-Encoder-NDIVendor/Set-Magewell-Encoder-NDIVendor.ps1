@@ -30,7 +30,7 @@ function Set-Magewell-Encoder-NDIVendor
      Outputs to JSON Object.
 
     .EXAMPLE
-     Set-Magewell-Encoder-NDIVendor -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -VendorName "vendorName" -VendorID "vendorID"
+     Set-Magewell-Encoder-NDIVendor -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -VendorName "vendorName" -VendorID "vendorID"
 
      Set-Magewell-Encoder-NDIVendor -IPAddress "192.168.66.1" -Session $mySession -VendorName "vendorName" -VendorID "vendorID"
 

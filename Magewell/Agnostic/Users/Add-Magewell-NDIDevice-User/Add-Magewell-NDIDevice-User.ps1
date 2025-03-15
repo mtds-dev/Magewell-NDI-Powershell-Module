@@ -30,7 +30,7 @@ function Add-Magewell-NDIDevice-User
      NONE
 
     .EXAMPLE
-     Add-Magewell-NDIDevice-User -IPAddress 10.10.10.1 -UserName "Admin" -Password "myPassword" -NewUserName "myuser" -NewUserPassword "mypassword"
+     Add-Magewell-NDIDevice-User -IPAddress 10.10.10.1 -UserName "Admin" -Password $(New-SecureString) -NewUserName "myuser" -NewUserPassword "mypassword"
 
      Add-Magewell-NDIDevice-User -IPAddress 10.10.10.1 -Session $mySession -NewUserName "myuser" -NewUserPassword "mypassword"
 

@@ -27,7 +27,7 @@ function Invoke-Magewell-Encoder-NDITally
      Outputs to a JSON object.
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-NDITally -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -EnableCustomLights $true
+     Invoke-Magewell-Encoder-NDITally -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -EnableCustomLights $true
 
      Invoke-Magewell-Encoder-NDITally -IPAddress "192.168.66.1" -Session $mySession -EnableCustomLights $true
 

@@ -30,7 +30,7 @@ function Invoke-Magewell-Encoder-EDIDExport
      Outputs JSON Object.
 
     .EXAMPLE
-     Invoke-Magewell-Encoder-EDIDExport -IPAddress "192.168.66.1" -UserName "Admin" -Password "myPassword" -Port in -FileName "path/to/file.bin"
+     Invoke-Magewell-Encoder-EDIDExport -IPAddress "192.168.66.1" -UserName "Admin" -Password $(New-SecureString) -Port in -FileName "path/to/file.bin"
 
      Invoke-Magewell-Encoder-EDIDExport -IPAddress "192.168.66.1" -Session $mySession -Port in -FileName "path/to/file.bin"
 
