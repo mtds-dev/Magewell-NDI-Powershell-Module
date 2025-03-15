@@ -2,10 +2,10 @@ function Get-Magewell-Encoder
 {
     <#
     .SYNOPSIS
-     Retreives information from a Magewell Pro Convert Decoder.     
+     Retreives information from a Magewell Pro Convert Encoder.     
 
     .DESCRIPTION
-     Retreives information from a Magewell Pro Convert Decoder.     
+     Retreives information from a Magewell Pro Convert Encoder.     
 
     .PARAMETER  ConnectedProducts
      The specifications vary considerably between different Pro Convert products. Use the interface to get the specifications of the connected product.
@@ -103,11 +103,11 @@ function Get-Magewell-Encoder
      Outputs JSON object.
 
     .EXAMPLE
-     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -SummaryInformation
+     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -SummaryInformation
 
-     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeAll
+     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -RetreiveLogs -LogTypeAll
 
-     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeInfo -LogTypeWarn
+     Get-Magewell-Encoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
      Get-Magewell-Encoder -IPAddress 10.10.10.10 -Session $mySession -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
@@ -121,82 +121,82 @@ function Get-Magewell-Encoder
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'SummaryInformation')]
-        [switch]$SummaryInformation,
+        [Switch]$SummaryInformation,
       
         [Parameter(Mandatory = $true, ParameterSetName = 'AutoReboot')]
-        [switch]$AutoReboot,
+        [Switch]$AutoReboot,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ResetAllPermissionSettings')]
-        [switch]$ResetAllPermissionSettings,
+        [Switch]$ResetAllPermissionSettings,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ConnectedProducts')]
-        [switch]$ConnectedProducts,
+        [Switch]$ConnectedProducts,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'SignalInformation')]
-        [switch]$SignalInformation,
+        [Switch]$SignalInformation,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'VideoConfiguration')]
-        [switch]$VideoConfiguration,
+        [Switch]$VideoConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'DefaultVideoConfiguration')]
-        [switch]$DefaultVideoConfiguration,
+        [Switch]$DefaultVideoConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EDIDOutput')]
-        [switch]$EDIDOutput,
+        [Switch]$EDIDOutput,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NDIConfiguration')]
-        [switch]$NDIConfiguration,
+        [Switch]$NDIConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NDISources')]
-        [switch]$NDISources,
+        [Switch]$NDISources,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'TallyStatus')]
-        [switch]$TallyStatus,
+        [Switch]$TallyStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'PTZConfiguration')]
-        [switch]$PTZConfiguration,
+        [Switch]$PTZConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'UserInformation')]
-        [switch]$UserInformation,
+        [Switch]$UserInformation,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EthernetStatus')]
-        [switch]$EthernetStatus,
+        [Switch]$EthernetStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EthernetUSBStatus')]
-        [switch]$EthernetUSBStatus,
+        [Switch]$EthernetUSBStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NetworkServiceStatus')]
-        [switch]$NetworkServiceStatus,
+        [Switch]$NetworkServiceStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NTPServerStatus')]
-        [switch]$NTPServerStatus,
+        [Switch]$NTPServerStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'FirmwareStatus')]
-        [switch]$FirmwareStatus,
+        [Switch]$FirmwareStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'DeviceReport')]
-        [switch]$DeviceReport,
+        [Switch]$DeviceReport,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'CloudStatus')]
-        [switch]$CloudStatus,
+        [Switch]$CloudStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeAll')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeInfo')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeWarn')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeError')]
-        [switch]$RetreiveLogs,
+        [Switch]$RetreiveLogs,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeAll')]
-        [switch]$LogTypeAll,
+        [Switch]$LogTypeAll,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeInfo')]
-        [switch]$LogTypeInfo,
+        [Switch]$LogTypeInfo,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeWarn')]
-        [switch]$LogTypeWarn,
+        [Switch]$LogTypeWarn,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeError')]
-        [switch]$LogTypeError,
+        [Switch]$LogTypeError,
 
         [Parameter(Mandatory = $false)]
         [string]$IPAddress,
