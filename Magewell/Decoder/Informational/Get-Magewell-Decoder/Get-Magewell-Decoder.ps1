@@ -121,11 +121,11 @@ function Get-Magewell-Decoder
       Returns a JSON object.    
 
     .EXAMPLE
-     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -SummaryInformation
+     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -SummaryInformation
 
-     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeAll
+     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -RetreiveLogs -LogTypeAll
 
-     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password myPassword -RetreiveLogs -LogTypeInfo -LogTypeWarn
+     Get-MagewellDecoder -IPAddress 10.10.10.10 -UserName Admin -Password $(New-SecureString) -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
      Get-MagewellDecoder -IPAddress 10.10.10.10 -Session $mySession -RetreiveLogs -LogTypeInfo -LogTypeWarn
 
@@ -139,108 +139,108 @@ function Get-Magewell-Decoder
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'SummaryInformation')]
-        [switch]$SummaryInformation,
+        [Switch]$SummaryInformation,
       
         [Parameter(Mandatory = $true, ParameterSetName = 'AutoReboot')]
-        [switch]$AutoReboot,
+        [Switch]$AutoReboot,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ResetAllPermissionSettings')]
-        [switch]$ResetAllPermissionSettings,
+        [Switch]$ResetAllPermissionSettings,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ConnectedProducts')]
-        [switch]$ConnectedProducts,
+        [Switch]$ConnectedProducts,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'SignalInformation')]
-        [switch]$SignalInformation,
+        [Switch]$SignalInformation,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'VideoConfiguration')]
-        [switch]$VideoConfiguration,
+        [Switch]$VideoConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'DefaultVideoConfiguration')]
-        [switch]$DefaultVideoConfiguration,
+        [Switch]$DefaultVideoConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'SupportedVideoModes')]
-        [switch]$SupportedVideoModes,
+        [Switch]$SupportedVideoModes,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'VideoFormat')]
-        [switch]$VideoFormat,
+        [Switch]$VideoFormat,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'HDMIOutput')]
-        [switch]$HDMIOutput,
+        [Switch]$HDMIOutput,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'AudioConfiguration')]
-        [switch]$AudioConfiguration,
+        [Switch]$AudioConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EDIDOutput')]
-        [switch]$EDIDOutput,
+        [Switch]$EDIDOutput,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ListChannels')]
-        [switch]$ListChannels,
+        [Switch]$ListChannels,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'SelectedChannel')]
-        [switch]$SelectedChannel,
+        [Switch]$SelectedChannel,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'BufferLimit')]
-        [switch]$BufferLimit,
+        [Switch]$BufferLimit,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NDIConfiguration')]
-        [switch]$NDIConfiguration,
+        [Switch]$NDIConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NDISources')]
-        [switch]$NDISources,
+        [Switch]$NDISources,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'PlaybackConfiguration')]
-        [switch]$PlaybackConfiguration,
+        [Switch]$PlaybackConfiguration,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'TallyStatus')]
-        [switch]$TallyStatus,
+        [Switch]$TallyStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'UserInformation')]
-        [switch]$UserInformation,
+        [Switch]$UserInformation,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EthernetStatus')]
-        [switch]$EthernetStatus,
+        [Switch]$EthernetStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'EthernetUSBStatus')]
-        [switch]$EthernetUSBStatus,
+        [Switch]$EthernetUSBStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'NetworkServiceStatus')]
-        [switch]$NetworkServiceStatus,
+        [Switch]$NetworkServiceStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'FirmwareStatus')]
-        [switch]$FirmwareStatus,
+        [Switch]$FirmwareStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'DeviceReport')]
-        [switch]$DeviceReport,
+        [Switch]$DeviceReport,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'CloudStatus')]
-        [switch]$CloudStatus,
+        [Switch]$CloudStatus,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeAll')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeInfo')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeWarn')]
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeError')]
-        [switch]$RetreiveLogs,
+        [Switch]$RetreiveLogs,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeAll')]
-        [switch]$LogTypeAll,
+        [Switch]$LogTypeAll,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeInfo')]
-        [switch]$LogTypeInfo,
+        [Switch]$LogTypeInfo,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeWarn')]
-        [switch]$LogTypeWarn,
+        [Switch]$LogTypeWarn,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'LogTypeError')]
-        [switch]$LogTypeError,
+        [Switch]$LogTypeError,
 
         [Parameter(Mandatory = $false)]
         [Alias("IP")]
-        [string]$IPAddress = "192.168.66.1",
+        [String]$IPAddress = "192.168.66.1",
 
         [Parameter(Mandatory = $false)]
         [Alias("User")]
-        [string]$UserName = "Admin",
+        [String]$UserName = "Admin",
 
         [Parameter(Mandatory = $true)]
         [Alias("Pass")]
